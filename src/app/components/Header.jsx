@@ -40,7 +40,7 @@ export default function Header() {
             className="h-12 md:h-16 w-auto object-contain"
           />
           <span className="text-[24px] md:text-[30px] font-bold text-black">
-            GenAI.Labs
+            TechOriginators
           </span>
         </div>
 

@@ -16,7 +16,7 @@ export default function ServiceHero() {
           </h1>
 
           <p className="text-gray-600 text-base leading-relaxed max-w-xl mb-8">
-            At GenAI Studio we’re passionate about bringing AI ideas to life. 
+            At TechOriginators Studio we’re passionate about bringing AI ideas to life. 
             With over a decade of experience, our team of experts is dedicated 
             to guiding you through every step of the machine learning product 
             development process. Whether you have a fully formed concept or 

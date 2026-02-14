@@ -101,7 +101,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2">
             <img src="/logo.png" alt="GenAI Labs Logo" className="h-16 w-auto" />
-            <span className="text-3xl font-bold">GenAI.Labs</span>
+            <span className="text-3xl font-bold">TechOriginators</span>
           </div>
         </div>
 
@@ -164,7 +164,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t py-4 text-center text-sm text-gray-500">
-        © 2025 by GenAI-Labs. All rights reserved.
+        © 2025 by Tech-Originators. All rights reserved.
       </div>
     </footer>
   );

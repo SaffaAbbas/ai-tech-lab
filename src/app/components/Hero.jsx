@@ -68,7 +68,7 @@ export default function Hero() {
             }`}
             style={{ transitionDelay: '400ms' }}
           >
-            Build AI.
+            Create AI.
           </h1>
           
           <p 
@@ -79,8 +79,7 @@ export default function Hero() {
             }`}
             style={{ transitionDelay: '600ms' }}
           >
-            We've collected the world's top AI experts to help forward-thinking 
-            companies transform digital visions into value.
+            We unite the world’s leading AI minds to help innovative companies transform visions into results.
           </p>
           
          <Link

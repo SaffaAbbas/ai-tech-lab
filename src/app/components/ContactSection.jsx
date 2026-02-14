@@ -78,7 +78,7 @@ const handleSubmit = async (e) => {
         <div className="space-y-10">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
             Reach Out and Connect <br />
-            With <span className="text-indigo-600">GenAI.Labs</span>
+            With <span className="text-indigo-600">TechOriginators</span>
           </h2>
 
           <div className="space-y-6 text-gray-700">

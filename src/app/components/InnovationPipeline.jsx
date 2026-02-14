@@ -55,7 +55,7 @@ export default function InnovationPipeline() {
             </div>
 
             <p className="text-lg text-gray-600 leading-relaxed">
-              At GeneXLabs, innovation drives how we build, test, and deliver intelligent solutions. Our proprietary innovation pipeline ensures a methodical, risk-managed approach from discovery to product integration, with continuous validation to maximize efficiency and impact.
+              At Tech Originators, innovation drives how we build, test, and deliver intelligent solutions. Our proprietary innovation pipeline ensures a methodical, risk-managed approach from discovery to product integration, with continuous validation to maximize efficiency and impact.
             </p>
 
             <p className="text-base font-medium text-gray-800">

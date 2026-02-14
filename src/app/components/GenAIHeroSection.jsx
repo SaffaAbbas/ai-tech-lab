@@ -22,7 +22,7 @@ export default function GenAIHeroSection() {
 
           
           <h1 className="text-2xl md:text-3xl font-semibold leading-snug mb-3">
-            GenAI is Here, is your{" "}
+            TechOriginators is Here, is your{" "}
             <span className="text-blue-800">Business Ready?</span>
           </h1>
 

@@ -95,14 +95,14 @@ const scrollLeft = () => {
       <div className="w-full bg-[#C4D1F86B] py-5 mb-10">
         <h2 className="text-2xl md:text-3xl font-semibold text-center px-4">
           What people are saying about{" "}
-          <span className="text-blue-800">GenAI.Labs</span>
+          <span className="text-blue-800">Tech.Originators</span>
         </h2>
       </div>
 
       {/* Reviews Header */}
       <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4 md:gap-0">
         <div className="flex items-center gap-4 flex-wrap -ml-12">
-          <h3 className="text-lg font-semibold">GenAI.Labs USA Reviews</h3>
+          <h3 className="text-lg font-semibold">Tech.Originators Reviews</h3>
           <div className="flex items-center gap-1 text-blue-800">
             <span className="font-semibold text-sm md:text-base">5.0</span>
             {[...Array(5)].map((_, i) => (

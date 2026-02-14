@@ -20,7 +20,7 @@ export default function AIServices() {
         {/* container */}
         <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
           <h2 className="text-3xl font-semibold text-gray-900">
-            Rated the #1 US Agency in
+            Our Services in
           </h2>
           <h3 className="text-3xl font-semibold text-blue-800 mt-1">
             Artificial Intelligence

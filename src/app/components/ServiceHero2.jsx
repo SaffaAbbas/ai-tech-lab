@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function ServiceHero2({
   badgeText = "Full-Service Machine Learning Product Development",
   title = "Turning Vision into Reality",
-  description = `At GenAI Studio we’re passionate about bringing AI ideas to life. 
+  description = `At Tech Originators Studio we’re passionate about bringing AI ideas to life. 
 With over a decade of experience, our team of experts is dedicated 
 to guiding you through every step of the machine learning product 
 development process. Whether you have a fully formed concept or 

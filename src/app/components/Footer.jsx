@@ -114,15 +114,15 @@ export default function Footer() {
           <ul className="mt-4 space-y-4 text-sm text-[#575757]">
             <li className="flex gap-3">
               <PhoneIcon className="w-4 h-4 text-blue-800" />
-              (323)-522-4040
+              (+92) 331 4480699
             </li>
             <li className="flex gap-3">
               <MailIcon className="w-4 h-4 text-blue-800" />
-              Eitan@genai-labs.io
+              info@techoriginators.com
             </li>
             <li className="flex gap-3">
               <MapPin className="w-4 h-4 text-blue-800" />
-              4035 Lafayette Pl,<br />Culver City, CA 90232
+              Lahore, Pakistan
             </li>
           </ul>
         </div>

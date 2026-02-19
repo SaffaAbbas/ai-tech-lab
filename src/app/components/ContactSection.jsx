@@ -86,7 +86,7 @@ const handleSubmit = async (e) => {
               <Mail className="text-indigo-600 mt-1" />
               <div>
                 <p className="font-semibold">Email Address</p>
-                <p className="text-sm">Elite@genai-labs.io</p>
+                <p className="text-sm">info@techoriginators.com</p>
               </div>
             </div>
 
@@ -94,7 +94,7 @@ const handleSubmit = async (e) => {
               <Phone className="text-indigo-600 mt-1" />
               <div>
                 <p className="font-semibold">Phone No</p>
-                <p className="text-sm">(323) 522-4040</p>
+                <p className="text-sm">  (+92) 331 4480699</p>
               </div>
             </div>
 
@@ -103,8 +103,7 @@ const handleSubmit = async (e) => {
               <div>
                 <p className="font-semibold">Location</p>
                 <p className="text-sm">
-                  4575 Pescadero Ave <br />
-                  San Diego California 92107
+                  Lahore, Pakistan
                 </p>
               </div>
             </div>

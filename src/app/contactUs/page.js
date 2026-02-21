@@ -2,7 +2,7 @@ import CaseHero from "../components/CaseHero";
 import ContactSection from "../components/ContactSection";
 import CTASection from "../components/CtaSection";
 import Footer from "../components/Footer";
-import SliderContact from "../components/SliderContact";
+import TechSlider from "../components/TechSlider";
 
 
 
@@ -15,7 +15,7 @@ export default function Process() {
                 description={null}
             />
             <ContactSection />
-            <SliderContact />
+            <TechSlider showHeading={false} bgColor="bg-[#EEF1FA]" heightClass="py-6" />
             {/* <CalendarSection /> */}
             <CTASection
                 title="Get Started Today"

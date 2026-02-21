@@ -16,6 +16,19 @@
     animation: marquee 20s linear infinite;
 }
 
+@keyframes marquee-tech {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee-tech {
+    animation: marquee-tech 30s linear infinite;
+}
+
 body {
     font-family: var(--font-nunito);
 }

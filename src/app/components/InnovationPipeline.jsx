@@ -77,9 +77,9 @@ export default function InnovationPipeline() {
                           >
                               <div className="relative h-100  w-full lg:w-[130%] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
                                   <img
-                                      src="/team3.jpeg"
-                                      alt="Innovation Stage 1"
-                                      className="w-full h-full object-cover"
+                                      src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80"
+                                      alt="Team collaboration"
+                                      className="w-full h-full object-cover object-left"
                                   />
                   <div className="absolute inset-0 flex items-center justify-center">
                   </div>
@@ -96,9 +96,9 @@ export default function InnovationPipeline() {
               >
                               <div className="relative h-100 w-4/5  ml-auto rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
                                   <img
-                                      src="/team2.jpeg"
-                                      alt="Innovation Stage 1"
-                                      className="w-full h-full object-cover"
+                                      src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80"
+                                      alt="Team collaboration"
+                                      className="w-full h-full object-cover object-right"
                                   />
                   <div className="absolute inset-0 flex items-center justify-center">
                   </div>

@@ -37,10 +37,36 @@ export default function CaseHero({
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full min-h-[20vh] flex items-center justify-center bg-gradient-to-br from-gray-100 via-indigo-100 to-purple-100 py-20 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative w-full min-h-[20vh] flex items-center justify-center bg-[#f0f2fa] py-20 px-6 md:px-12 lg:px-20 overflow-hidden"
     >
-      <div className="max-w-4xl mx-auto w-full">
-        {/* Text Content */}
+      {/* Decorative shapes */}
+      <div className="absolute top-6 left-6 w-14 h-14 border-4 border-indigo-400/70 rounded-full" />
+      <div className="absolute bottom-10 left-12 w-8 h-8 bg-pink-500/60 rounded-full" />
+      <div className="absolute top-1/2 left-4 w-5 h-5 bg-indigo-600/50 rounded-full" />
+
+      <svg className="absolute top-4 left-10 w-8 h-8 text-indigo-500/65" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <line x1="4" y1="4" x2="20" y2="20" />
+        <line x1="4" y1="10" x2="14" y2="20" />
+      </svg>
+
+      <svg className="absolute bottom-8 right-16 w-10 h-10 text-indigo-500/60" viewBox="0 0 24 24" fill="currentColor">
+        <polygon points="12,2 22,22 2,22" />
+      </svg>
+
+      <div className="absolute top-8 right-10 w-10 h-10 border-4 border-indigo-400/60 rounded-full" />
+      <div className="absolute top-1/2 right-6 w-4 h-4 bg-rose-500/55 rounded-full" />
+
+      <svg className="absolute bottom-12 left-1/4 w-6 h-6 text-indigo-500/50" viewBox="0 0 24 24" fill="currentColor">
+        <rect x="4" y="4" width="16" height="16" rx="2" />
+      </svg>
+
+      <div className="absolute top-12 right-1/4 grid grid-cols-3 gap-1.5 opacity-20">
+        {[...Array(9)].map((_, i) => (
+          <div key={i} className="w-1.5 h-1.5 bg-indigo-400 rounded-full" />
+        ))}
+      </div>
+
+      <div className="max-w-4xl mx-auto w-full relative z-10">
         <div 
           className={`space-y-6 text-center transition-all duration-1000 transform ${
             isVisible 
@@ -58,14 +84,11 @@ export default function CaseHero({
             </h2>
           </div>
 
-          <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
-            {description}
-          </p>
-        </div>
-
-        {/* Decorative Element */}
-        <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
-          <div className="w-full h-full bg-gradient-to-r from-indigo-200/30 to-purple-200/30 rounded-full blur-3xl"></div>
+          {description && (
+            <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
+              {description}
+            </p>
+          )}
         </div>
       </div>
     </section>

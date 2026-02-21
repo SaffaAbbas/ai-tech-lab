@@ -27,7 +27,7 @@ export default function GenAIHeroSection() {
           </h1>
 
          <p className="text-gray-600 text-sm leading-relaxed mb-6 text-left">
-            McKinsey & Company predict that Generative A.I. will generate
+            Generative A.I. will generate
             up to <span className="font-semibold">$4.4 Trillion</span> in value annually. 
             Accenture estimates that it could automate up to{" "}
             <span className="font-semibold">70%</span> of work activities, and 

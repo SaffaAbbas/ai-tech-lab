@@ -71,8 +71,8 @@ const handleSubmit = async (e) => {
   };
 
   return (
-    <section className="bg-white py-24 px-6">
-      <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+    <section className="bg-gray-50 py-16 px-6">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
         {/* LEFT CONTENT */}
         <div className="space-y-10">
@@ -97,21 +97,11 @@ const handleSubmit = async (e) => {
                 <p className="text-sm">  (+92) 331 4480699</p>
               </div>
             </div>
-
-            <div className="flex items-start gap-4">
-              <MapPin className="text-indigo-600 mt-1" />
-              <div>
-                <p className="font-semibold">Location</p>
-                <p className="text-sm">
-                  Lahore, Pakistan
-                </p>
-              </div>
-            </div>
           </div>
         </div>
 
         {/* RIGHT FORM */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full mx-auto">
+        <div className="bg-white rounded-2xl shadow-[0_8px_40px_rgba(79,70,229,0.15)] border border-gray-100 p-8 w-full">
           <h3 className="text-lg font-semibold mb-6 text-gray-900">
             Schedule your <span className="text-indigo-600">free consultation!</span>
           </h3>
@@ -128,7 +118,7 @@ const handleSubmit = async (e) => {
 )}
 
 
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          <form className="space-y-3" onSubmit={handleSubmit}>
             <input
               type="text"
               name="fullName"
@@ -186,7 +176,7 @@ const handleSubmit = async (e) => {
             <textarea
               name="message"
               placeholder="Description"
-              rows="4"
+              rows="3"
               className="w-full px-4 py-3 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               onChange={handleChange}
             />

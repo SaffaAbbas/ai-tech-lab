@@ -16,7 +16,6 @@ export default function Process() {
             />
             <ContactSection />
             <TechSlider showHeading={false} bgColor="bg-[#EEF1FA]" heightClass="py-6" />
-            {/* <CalendarSection /> */}
             <CTASection
                 title="Get Started Today"
                 description="Ready to turn your AI vision into a tangible, impactful product? Reach out to us today, and let’s start building your custom machine learning solution."

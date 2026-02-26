@@ -10,7 +10,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const services = [
-    { name: "Machine Learning Product Development", href: "/service1" },
+    { name: "Machine Learning Product Development", href:  "/service1" },
     { name: "Large-Language-Model & GPT Integration", href: "/service2" },
     { name: "AI-Powered App and Web Development", href: "/service3" },
     { name: "AI-Driven Product Discovery", href: "/service4" },

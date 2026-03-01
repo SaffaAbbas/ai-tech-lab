@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${nunito.variable} antialiased`}>
         <Header />
-        <main className="pt-[112px] md:pt-[120px]">
+        <main className="pt-[84px] md:pt-[92px]">
           {children}
         </main>
       </body>

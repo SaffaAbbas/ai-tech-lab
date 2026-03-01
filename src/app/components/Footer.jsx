@@ -1,6 +1,6 @@
 'use client';
 
-import { MailIcon, MapPin, PhoneIcon } from "lucide-react";
+import { Facebook, Instagram, Linkedin, MailIcon, PhoneIcon } from "lucide-react";
 import { useState } from "react";
 
 export default function Footer() {
@@ -19,18 +19,18 @@ export default function Footer() {
 
   return (
     <footer className="bg-white border-t border-gray-200">
-      <div className="max-w-5xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className="max-w-5xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-x-6 items-start">
 
         {/* Logo */}
-        <div>
+        <div className="lg:pr-10">
           <div className="flex items-center gap-2">
             <img src="/logo.png" alt="GenAI Labs Logo" className="h-16 w-auto" />
-            <span className="text-3xl font-bold">TechOriginators</span>
+            <span className="text-2xl font-bold">TechOriginators</span>
           </div>
         </div>
 
         {/* Contact */}
-        <div>
+        <div className="lg:pl-8">
           <h3 className="font-bold mb-3 border-b-4 border-blue-800 inline-block pb-1">
             Contact Us
           </h3>
@@ -43,6 +43,48 @@ export default function Footer() {
             <li className="flex gap-3">
               <MailIcon className="w-4 h-4 text-blue-800" />
               info@techoriginators.com
+            </li>
+          </ul>
+        </div>
+
+        {/* Social Links */}
+        <div className="lg:pl-8">
+          <h3 className="font-bold mb-3 border-b-4 border-blue-800 inline-block pb-1">
+            Social Links
+          </h3>
+          <ul className="mt-4 space-y-3 text-sm text-[#575757]">
+            <li>
+              <a
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 hover:text-blue-800 transition"
+              >
+                <Facebook className="w-4 h-4" />
+                Facebook
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 hover:text-blue-800 transition"
+              >
+                <Linkedin className="w-4 h-4" />
+                LinkedIn
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 hover:text-blue-800 transition"
+              >
+                <Instagram className="w-4 h-4" />
+                Instagram
+              </a>
             </li>
           </ul>
         </div>
@@ -83,7 +125,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t py-4 text-center text-sm text-gray-500">
+      <div className="border-t py-4 text-center text-sm font-normal text-gray-300">
         © 2026 by Tech-Originators. All rights reserved.
       </div>
     </footer>

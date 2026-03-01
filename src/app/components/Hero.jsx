@@ -48,8 +48,9 @@ export default function Hero() {
       <div className="absolute inset-0 bg-black/65" />
 
       {/* CONTENT */}
-      <div className="relative z-10 flex items-center justify-start h-full px-6 sm:px-12 md:px-16 lg:px-50">
-        <div className="max-w-4xl">
+      <div className="relative z-10 h-full">
+        <div className="max-w-5xl mx-auto h-full flex items-center px-6">
+          <div className="max-w-4xl">
           <h2
             className={`text-white text-lg sm:text-xl md:text-2xl lg:text-3xl font-light mb-3 sm:mb-4 transition-all duration-1000 ${
               isVisible
@@ -83,17 +84,18 @@ export default function Hero() {
             We've collected the world's top AI experts to help forward-thinking companies transform digital <strong>visions into value.</strong>
           </p>
 
-          <Link
-            href="/contactUs"
-            className={`inline-block bg-blue-800 text-white px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-105 ${
-              isVisible
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-10'
-            }`}
-            style={{ transitionDelay: '800ms' }}
-          >
-            Talk to an AI Expert &rarr;
-          </Link>
+            <Link
+              href="/contactUs"
+              className={`inline-block bg-blue-800 text-white px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-105 ${
+                isVisible
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: '800ms' }}
+            >
+              Talk to an AI Expert &rarr;
+            </Link>
+          </div>
         </div>
       </div>
     </section>

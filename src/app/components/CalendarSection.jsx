@@ -2,10 +2,11 @@
 
 import { useState, useMemo } from 'react';
 
-const TIME_SLOTS = [
-  '10:00pm', '10:30pm', '11:00pm', '11:30pm',
-  '12:00am', '12:30am', '1:00am', '1:30am',
-];
+const TIME_SLOTS = Array.from({ length: 48 }, (_, index) => {
+  const hours = String(Math.floor(index / 2)).padStart(2, '0');
+  const minutes = index % 2 === 0 ? '00' : '30';
+  return `${hours}:${minutes}`;
+});
 
 const BUDGET_OPTIONS = [
   '$5000 - $20,000',
@@ -145,7 +146,7 @@ export default function CalendarSection() {
   // ──────── STEP 3: THANK YOU ────────
   if (step === 3) {
     return (
-      <section className="py-16 px-4 bg-white">
+      <section id="calendar-section" className="py-10 px-4 bg-white">
         <div className="max-w-5xl mx-auto text-center">
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -175,10 +176,10 @@ export default function CalendarSection() {
   }
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section id="calendar-section" className="py-10 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -197,7 +198,7 @@ export default function CalendarSection() {
           <div className={`grid grid-cols-1 ${step === 1 ? (selectedDate ? 'lg:grid-cols-[280px_1fr_1fr]' : 'lg:grid-cols-[280px_1fr]') : 'lg:grid-cols-[280px_1fr]'}`}>
 
             {/* ──── LEFT: Info Panel ──── */}
-            <div className="p-8 border-b lg:border-b-0 lg:border-r border-gray-200 relative">
+            <div className="p-6 border-b lg:border-b-0 lg:border-r border-gray-200 relative">
               {step === 2 && (
                 <button onClick={handleBack} className="mb-4 p-2 hover:bg-gray-100 rounded-full transition">
                   <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -244,7 +245,7 @@ export default function CalendarSection() {
             {step === 1 && (
               <>
                 {/* Calendar */}
-                <div className="p-6 md:p-8 border-b lg:border-b-0 lg:border-r border-gray-200">
+                <div className="p-5 md:p-6 border-b lg:border-b-0 lg:border-r border-gray-200">
                   <h4 className="text-lg font-bold mb-5">Select a Date & Time</h4>
 
                   {/* Month Nav */}
@@ -302,11 +303,11 @@ export default function CalendarSection() {
 
                 {/* Time Slots */}
                 {selectedDate && (
-                  <div className="p-6 md:p-8">
+                  <div className="p-5 md:p-6">
                     <div className="font-bold text-base mb-5">
                       {formatDayFull(currentYear, currentMonth, selectedDate)}
                     </div>
-                    <div className="space-y-2.5">
+                    <div className="space-y-2.5 max-h-[420px] overflow-y-auto pr-1">
                       {TIME_SLOTS.map((time) => (
                         <div key={time} className="flex gap-2">
                           <button
@@ -337,7 +338,7 @@ export default function CalendarSection() {
 
             {/* ──── STEP 2: Details Form ──── */}
             {step === 2 && (
-              <div className="p-6 md:p-8">
+              <div className="p-5 md:p-6">
                 <h4 className="text-lg font-bold mb-5">Enter Details</h4>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>

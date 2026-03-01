@@ -37,7 +37,7 @@ export default function CaseHero({
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full min-h-[20vh] flex items-center justify-center bg-[#f0f2fa] py-20 px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative w-full min-h-[20vh] flex items-center justify-center bg-[#f0f2fa] py-12 px-6 md:px-12 lg:px-20 overflow-hidden"
     >
       {/* Decorative shapes */}
       <div className="absolute top-6 left-6 w-14 h-14 border-4 border-indigo-400/70 rounded-full" />

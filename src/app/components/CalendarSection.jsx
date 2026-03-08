@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 const TIME_SLOTS = Array.from({ length: 48 }, (_, index) => {
   const hours = String(Math.floor(index / 2)).padStart(2, '0');
@@ -33,6 +33,24 @@ function formatDayFull(year, month, day) {
   return new Date(year, month, day).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 }
 
+function formatScheduleDateTime(year, month, day, time24) {
+  const date = new Date(year, month, day);
+  const datePart = date.toLocaleDateString('en-CA');
+  const [hourStr, minute] = time24.split(':');
+  const hourNum = Number(hourStr);
+  const period = hourNum >= 12 ? 'PM' : 'AM';
+  const hour12 = hourNum % 12 || 12;
+  return `${datePart} ${String(hour12).padStart(2, '0')}:${minute} ${period}`;
+}
+
+function formatTime12Hour(time24) {
+  const [hourStr, minute] = time24.split(':');
+  const hourNum = Number(hourStr);
+  const period = hourNum >= 12 ? 'PM' : 'AM';
+  const hour12 = hourNum % 12 || 12;
+  return `${String(hour12).padStart(2, '0')}:${minute} ${period}`;
+}
+
 function getTimeZone() {
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -60,6 +78,9 @@ export default function CalendarSection() {
   const [selectedTime, setSelectedTime] = useState(null);
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [apiMessage, setApiMessage] = useState('');
+  const [scheduledEmail, setScheduledEmail] = useState('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -118,23 +139,40 @@ export default function CalendarSection() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     setLoading(true);
     try {
-      await fetch('https://ailab.techoriginators.com/mail.php', {
+      const payload = {
+        type: 'consultation',
+        name: formData.name,
+        email: formData.email.trim() || `consultation.${Date.now()}@dummy.local`,
+        phone: formData.phone ? (formData.phone.startsWith('+') ? formData.phone : `+${formData.phone}`) : '',
+        budget: formData.budget,
+        funding: formData.funding,
+        description: formData.message,
+        protectWithNda: false,
+        scheduleDateTime: formatScheduleDateTime(currentYear, currentMonth, selectedDate, selectedTime),
+      };
+
+      const response = await fetch('https://common-services.vercel.app/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          date: formatDayFull(currentYear, currentMonth, selectedDate),
-          time: selectedTime,
-          type: 'calendar_booking',
-        }),
+        body: JSON.stringify(payload),
       });
-    } catch {
-      // still show thank you
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || result?.success === false) {
+        throw new Error(result?.message || 'Failed to schedule consultation. Please try again.');
+      }
+
+      setScheduledEmail(payload.email);
+      setApiMessage(result?.message || 'Consultation scheduled successfully.');
+      setStep(3);
+    } catch (submitError) {
+      setError(submitError?.message || 'Failed to schedule consultation. Please try again.');
     }
     setLoading(false);
-    setStep(3);
   };
 
   const isPastMonth = () => {
@@ -142,6 +180,15 @@ export default function CalendarSection() {
     return currentYear < today.getFullYear() ||
       (currentYear === today.getFullYear() && currentMonth <= today.getMonth() - 1);
   };
+
+  useEffect(() => {
+    if (step !== 3) return;
+
+    const section = document.getElementById('calendar-section');
+    if (!section) return;
+
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [step]);
 
   // ──────── STEP 3: THANK YOU ────────
   if (step === 3) {
@@ -153,19 +200,20 @@ export default function CalendarSection() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">You're all set!</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-3">Thank You for Consulting with Us!</h2>
           <p className="text-gray-600 text-lg mb-2">
-            Your consultation has been scheduled for
+            We have received your request successfully.
           </p>
           <p className="text-indigo-600 font-semibold text-xl mb-1">
             {formatDayFull(currentYear, currentMonth, selectedDate)}
           </p>
-          <p className="text-indigo-600 font-semibold text-lg mb-6">at {selectedTime}</p>
+          <p className="text-indigo-600 font-semibold text-lg mb-6">at {formatTime12Hour(selectedTime)}</p>
           <p className="text-gray-500">
-            We'll send a confirmation to <strong>{formData.email}</strong> with all the details.
+            We'll send a confirmation to <strong>{scheduledEmail}</strong> with all the details.
           </p>
+          {apiMessage && <p className="text-green-600 mt-3">{apiMessage}</p>}
           <button
-            onClick={() => { setStep(1); setSelectedDate(null); setSelectedTime(null); setFormData({ name: '', email: '', phone: '', message: '', funding: '', budget: '' }); }}
+            onClick={() => { setStep(1); setSelectedDate(null); setSelectedTime(null); setError(''); setApiMessage(''); setScheduledEmail(''); setFormData({ name: '', email: '', phone: '', message: '', funding: '', budget: '' }); }}
             className="mt-8 bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition"
           >
             Book Another Call
@@ -229,7 +277,7 @@ export default function CalendarSection() {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
-                    <span className="text-sm font-medium">{selectedTime}, {formatDayFull(currentYear, currentMonth, selectedDate)}</span>
+                    <span className="text-sm font-medium">{formatTime12Hour(selectedTime)}, {formatDayFull(currentYear, currentMonth, selectedDate)}</span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -318,7 +366,7 @@ export default function CalendarSection() {
                                 : 'border-blue-200 text-blue-600 hover:border-blue-400'}
                             `}
                           >
-                            {time}
+                            {formatTime12Hour(time)}
                           </button>
                           {selectedTime === time && (
                             <button
@@ -341,6 +389,9 @@ export default function CalendarSection() {
               <div className="p-5 md:p-6">
                 <h4 className="text-lg font-bold mb-5">Enter Details</h4>
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  {error && (
+                    <p className="text-sm text-red-600 font-medium">{error}</p>
+                  )}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
                     <input
@@ -354,11 +405,10 @@ export default function CalendarSection() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Email (optional)</label>
                     <input
                       type="email"
                       name="email"
-                      required
                       value={formData.email}
                       onChange={handleChange}
                       className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -370,6 +420,7 @@ export default function CalendarSection() {
                     <input
                       type="tel"
                       name="phone"
+                      required
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="Enter Phone Number"

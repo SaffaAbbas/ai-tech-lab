@@ -16,10 +16,14 @@ export default function ContactSection() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [apiMessage, setApiMessage] = useState("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 const handleSubmit = async (e) => {
   e.preventDefault();
   setError("");
   setSuccess(false);
+  setApiMessage("");
 
   // BASIC VALIDATION
   if (!formData.fullName || !formData.email || !formData.phone) {
@@ -35,17 +39,34 @@ const handleSubmit = async (e) => {
   try {
     setLoading(true);
 
-    const res = await fetch("https://ailab.techoriginators.com/mail.php", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(formData),
-});
+    const payload = {
+      type: "contact",
+      name: formData.fullName,
+      email: formData.email,
+      phone: formData.phone.startsWith("+") ? formData.phone : `+${formData.phone}`,
+      protectWithNda: formData.nda,
+      ...(formData.budget ? { budget: formData.budget } : {}),
+      ...(formData.message ? { description: formData.message } : {}),
+    };
 
-    if (!res.ok) throw new Error("Failed to send");
+    const res = await fetch("https://common-services.vercel.app/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await res.json().catch(() => ({}));
+
+    if (!res.ok || result?.success === false) {
+      throw new Error(result?.message || "Failed to send");
+    }
 
     setSuccess(true);
+    setApiMessage(result?.message || "Your contact request has been submitted successfully.");
+    setShowSuccessModal(true);
+    requestAnimationFrame(() => setModalVisible(true));
     setFormData({
       fullName: "",
       email: "",
@@ -68,6 +89,14 @@ const handleSubmit = async (e) => {
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
     });
+  };
+
+  const closeSuccessModal = () => {
+    setModalVisible(false);
+    setTimeout(() => {
+      setShowSuccessModal(false);
+      setSuccess(false);
+    }, 220);
   };
 
   return (
@@ -111,18 +140,12 @@ const handleSubmit = async (e) => {
   </p>
 )}
 
-{success && (
-  <p className="text-green-600 text-sm font-medium">
-    Thank you! We will contact you soon and schedule a call.
-  </p>
-)}
-
-
           <form className="space-y-3" onSubmit={handleSubmit}>
             <input
               type="text"
               name="fullName"
               placeholder="Full Name"
+              value={formData.fullName}
               className="w-full px-4 py-3 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               onChange={handleChange}
             />
@@ -131,27 +154,32 @@ const handleSubmit = async (e) => {
               type="email"
               name="email"
               placeholder="Email"
+              value={formData.email}
               className="w-full px-4 py-3 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               onChange={handleChange}
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <PhoneInput
-                country={"us"}
-                value={formData.phone}
-                onChange={(phone) =>
-                  setFormData({ ...formData, phone })
-                }
-  inputClass="!w-full !h-[48px] !bg-gray-100 !border-none !rounded-lg focus:!ring-2 focus:!ring-indigo-500"
-  buttonClass="!border-none !bg-gray-100"
-  dropdownClass="!z-50"
-  enableSearch
-  countryCodeEditable={false}
-/>
+              <div className="w-full rounded-lg border border-gray-300 bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500">
+                <PhoneInput
+                  country={"us"}
+                  value={formData.phone}
+                  onChange={(phone) =>
+                    setFormData({ ...formData, phone })
+                  }
+                  containerClass="!w-full"
+                  inputClass="!w-full !h-[48px] !bg-transparent !border-none !rounded-r-lg focus:!ring-0 focus:!outline-none"
+                  buttonClass="!border-0 !border-r !border-gray-300 !bg-transparent !rounded-l-lg"
+                  dropdownClass="!z-50"
+                  enableSearch
+                  countryCodeEditable={false}
+                />
+              </div>
 
 
               <select
                 name="budget"
+                value={formData.budget}
                 className="w-full px-4 py-3 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 onChange={handleChange}
               >
@@ -167,6 +195,7 @@ const handleSubmit = async (e) => {
               <input
                 type="checkbox"
                 name="nda"
+                checked={formData.nda}
                 className="accent-indigo-600"
                 onChange={handleChange}
               />
@@ -177,6 +206,7 @@ const handleSubmit = async (e) => {
               name="message"
               placeholder="Description"
               rows="3"
+              value={formData.message}
               className="w-full px-4 py-3 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               onChange={handleChange}
             />
@@ -193,6 +223,37 @@ const handleSubmit = async (e) => {
         </div>
 
       </div>
+      {showSuccessModal && (
+        <div
+          className={`fixed inset-0 z-[100] flex items-center justify-center p-4 transition-colors duration-200 ${modalVisible ? "bg-black/45" : "bg-black/0"}`}
+          onClick={closeSuccessModal}
+        >
+          <div
+            className={`w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl transition-all duration-200 ${modalVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-2"}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="w-12 h-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto mb-4">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <h4 className="text-xl font-bold text-gray-900 text-center mb-2">
+              Thank you for contacting us!
+            </h4>
+            <p className="text-gray-600 text-center mb-1">
+              We will contact you soon.
+            </p>
+            <p className="text-green-600 text-center text-sm mb-5">
+              {apiMessage}
+            </p>
+            <button
+              type="button"
+              onClick={closeSuccessModal}
+              className="w-full bg-indigo-600 text-white py-2.5 rounded-full font-semibold hover:bg-indigo-700 transition"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
